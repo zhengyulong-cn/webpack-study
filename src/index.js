@@ -1,19 +1,12 @@
 import _ from 'lodash';
-import './style.css';
-import RefImage from './toRef和toRefs.svg';
-import Data from './assets/data.xml';
-import Notes from './assets/data.csv';
+import printMe from './print';
 function component() {
   const el = document.createElement('div');
+  const btn = document.createElement('button');
   el.innerHTML = _.join(['Hello', 'webpack'], '-');
-  el.classList.add('hello');
-
-  const myPic = new Image();
-  myPic.src = RefImage;
-  el.appendChild(myPic)
-  // 加载数据
-  console.log('xml', Data);
-  console.log('csv', Notes);
+  btn.innerHTML = 'Click me and check the console!';
+  btn.onclick = printMe;
+  el.appendChild(btn)
   return el;
 }
 document.body.appendChild(component())
