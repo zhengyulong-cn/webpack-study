@@ -1,12 +1,18 @@
-import _ from 'lodash';
-import printMe from './print';
-function component() {
+function getComponent1() {
+  return import('lodash').then(({ default: _ }) => {
+    const el = document.createElement('div')
+    el.innerHTML = _.join(['Hello', 'webpack'], '-');
+    return el;
+  }).catch(err => {
+    return '组件加载时候发生报错'
+  })
+}
+async function getComponent2() {
   const el = document.createElement('div');
-  const btn = document.createElement('button');
-  el.innerHTML = _.join(['Hello', 'webpack'], '-');
-  btn.innerHTML = 'Click me and check the console!';
-  btn.onclick = printMe;
-  el.appendChild(btn)
+  const { default: _ } = await import('lodash')
+  el.innerHTML = _.join(['Hello', 'webpack'], ',');
   return el;
 }
-document.body.appendChild(component())
+getComponent2().then((component) => {
+  document.body.appendChild(component)
+})
